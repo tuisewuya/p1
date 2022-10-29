@@ -8,7 +8,7 @@ export type TransferCardProps<T> = Size & {
   itemKey: (item: T) => string;
   children: (item: T) => ReactNode;
 };
-const TransferCard = function <T>(props: TransferCardProps<T>) {
+const TransferCard = <T,>(props: TransferCardProps<T>) => {
   const { list, itemKey, children, width, height } = props;
   return (
     <Swiper
