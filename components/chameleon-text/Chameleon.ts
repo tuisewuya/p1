@@ -10,15 +10,16 @@ class Chameleon {
   /** 记录上次改变的宽度, 用于节流 */
   private previouSourceWidth = 2;
   private fontFamily?: string;
+  private multiplier = 2;
 
   constructor(canvas: HTMLCanvasElement, w: number, h: number) {
     this.canvas = canvas;
     this.ctx = canvas.getContext("2d")!;
-    this.canvas.width = w;
-    this.canvas.height = h + 20;
+    this.canvas.width = w * this.multiplier;
+    this.canvas.height = h * this.multiplier;
   }
 
-  setText(text: string, targetRGB?: RGB, fontFamily = "黑体") {
+  setText(text: string, targetRGB?: RGB, fontFamily?: string) {
     this.text = text;
     this.fontFamily = fontFamily;
     if (targetRGB && targetRGB?.length === 3) {
@@ -27,7 +28,7 @@ class Chameleon {
         else return v;
       }) as RGB;
     }
-    this.initContent();
+    this.drawText();
   }
 
   setRatio(ratio: number) {
@@ -35,11 +36,36 @@ class Chameleon {
     this.render();
   }
 
-  private drawText(char: string, y: number) {
+  private render() {
+    const sw = this.canvas.width * (this.ratio / 100);
+    const tmp = Math.abs(sw - this.previouSourceWidth);
+    if (tmp < 2) return;
+    this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+    this.drawText();
+    this.turnColour(sw);
+  }
+
+  private getRGBA(data: Uint8ClampedArray, i: number) {
+    return [data[i], data[i + 1], data[i + 2], data[i + 3]];
+  }
+
+  private textRender(char: string, y: number) {
     this.ctx.save();
-    this.ctx.font = `${this.canvas.width}px/${this.canvas.width}px ${this.fontFamily}`;
+    this.ctx.font = `500 ${this.canvas.width}px ${this.fontFamily}`;
+    this.ctx.shadowColor = "rgba(0,0,0,0.1)";
+    this.ctx.shadowOffsetX = 5 * this.multiplier;
+    this.ctx.shadowOffsetY = 3 * this.multiplier;
+    this.ctx.shadowBlur = 0;
+    this.ctx.textBaseline = "bottom";
     this.ctx.fillText(char, 0, y);
     this.ctx.restore();
+  }
+
+  private drawText() {
+    this.text.split("").forEach((item, i) => {
+      const y = (i + 1) * this.canvas.width + i * 8 * this.multiplier;
+      this.textRender(item, y);
+    });
   }
 
   /** 改变图片颜色 */
@@ -63,25 +89,6 @@ class Chameleon {
     } catch (error) {
       console.error("计算宽度不够", sw);
     }
-  }
-
-  private getRGBA(data: Uint8ClampedArray, i: number) {
-    return [data[i], data[i + 1], data[i + 2], data[i + 3]];
-  }
-
-  private initContent() {
-    this.text.split("").forEach((item, i) => {
-      this.drawText(item, (i + 1) * this.canvas.width);
-    });
-  }
-
-  private render() {
-    const sw = this.canvas.width * (this.ratio / 100);
-    const tmp = Math.abs(sw - this.previouSourceWidth);
-    if (tmp < 4) return;
-    this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
-    this.initContent();
-    this.turnColour(sw);
   }
 }
 

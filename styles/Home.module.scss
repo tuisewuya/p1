@@ -13,6 +13,16 @@
     height: 60px;
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: space-between;
+    padding: 0 10px;
+
+    & input {
+      width: 100px;
+    }
+
+    .audio {
+      display: flex;
+      gap: 8px;
+    }
   }
 }

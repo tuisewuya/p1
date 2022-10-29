@@ -26,3 +26,18 @@ a {
     background: black;
   }
 }
+
+[type="button"] {
+  user-select: none;
+  border: none;
+  padding: 4px 20px;
+  font-size: 14px;
+  border-radius: 4px;
+  box-shadow: 1px 1px 2px 0 rgba(0, 0, 0, 0.1);
+  background-color: skyblue;
+  color: #fff;
+}
+[type="button"]:disabled {
+  background-color: rgb(239, 239, 239);
+  color: #666;
+}
