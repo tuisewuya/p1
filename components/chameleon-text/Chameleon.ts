@@ -3,6 +3,7 @@ class Chameleon {
   private canvas: HTMLCanvasElement;
   private ctx: CanvasRenderingContext2D;
   private text: string = "";
+  /** rgb 8位/通道, [0, 0 , 0] 到 [255, 255, 255] */
   private targetRGB: RGB = [0, 0, 0];
   /** 变色比例 */
   private ratio: number = 0;
