@@ -10,11 +10,9 @@
   },
   "dependencies": {
     "classnames": "^2.3.2",
-    "js-audio-recorder": "^1.0.7",
     "next": "12.3.1",
     "react": "18.2.0",
     "react-dom": "18.2.0",
-    "recorder-core": "^1.2.22080700",
     "swiper": "^8.4.4"
   },
   "devDependencies": {
