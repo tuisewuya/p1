@@ -16,13 +16,15 @@
     justify-content: space-between;
     padding: 0 10px;
 
-    & input {
-      width: 100px;
-    }
-
     .audio {
       display: flex;
       gap: 8px;
     }
   }
+}
+
+.ratio {
+  display: flex;
+  justify-content: center;
+  gap: 40px;
 }

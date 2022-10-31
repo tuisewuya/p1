@@ -7,8 +7,6 @@ class Chameleon {
   private targetRGB: RGB = [0, 0, 0];
   /** 变色比例 */
   private ratio: number = 0;
-  /** 记录上次改变的宽度, 用于节流 */
-  private previouSourceWidth = 2;
   private fontFamily?: string;
   private multiplier = 2;
 
@@ -38,8 +36,6 @@ class Chameleon {
 
   private render() {
     const sw = this.canvas.width * (this.ratio / 100);
-    const tmp = Math.abs(sw - this.previouSourceWidth);
-    if (tmp < 2) return;
     this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
     this.drawText();
     this.turnColour(sw);
@@ -71,7 +67,6 @@ class Chameleon {
   /** 改变图片颜色 */
   private turnColour(sw: number) {
     if (this.ratio < 2 || this.ratio > 100) return;
-    this.previouSourceWidth = sw;
     try {
       const imgData = this.ctx.getImageData(
         0,
