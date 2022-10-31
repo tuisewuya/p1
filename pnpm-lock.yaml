@@ -8,10 +8,10 @@ specifiers:
   eslint: 8.25.0
   eslint-config-next: 12.3.1
   js-audio-recorder: ^1.0.7
+  nanoid: ^4.0.0
   next: 12.3.1
   react: 18.2.0
   react-dom: 18.2.0
-  recorder-core: ^1.2.22080700
   sass: ^1.55.0
   swiper: ^8.4.4
   typescript: 4.8.4
@@ -19,10 +19,10 @@ specifiers:
 dependencies:
   classnames: registry.npmmirror.com/classnames/2.3.2
   js-audio-recorder: registry.npmmirror.com/js-audio-recorder/1.0.7
+  nanoid: registry.npmmirror.com/nanoid/4.0.0
   next: registry.npmmirror.com/next/12.3.1_2mygebwfgdyopr3fy2qddu2eli
   react: registry.npmmirror.com/react/18.2.0
   react-dom: registry.npmmirror.com/react-dom/18.2.0_react@18.2.0
-  recorder-core: registry.npmmirror.com/recorder-core/1.2.22080700
   swiper: registry.npmmirror.com/swiper/8.4.4
 
 devDependencies:
@@ -1780,6 +1780,14 @@ packages:
     hasBin: true
     dev: false
 
+  registry.npmmirror.com/nanoid/4.0.0:
+    resolution: {integrity: sha512-IgBP8piMxe/gf73RTQx7hmnhwz0aaEXYakvqZyE302IXW3HyVNhdNGC+O2MwMAVhLEnvXlvKtGbtJf6wvHihCg==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/nanoid/-/nanoid-4.0.0.tgz}
+    name: nanoid
+    version: 4.0.0
+    engines: {node: ^14 || ^16 || >=18}
+    hasBin: true
+    dev: false
+
   registry.npmmirror.com/natural-compare/1.4.0:
     resolution: {integrity: sha512-OWND8ei3VtNC9h7V60qff3SVobHr996CTwgxubgyQYEpg290h9J0buyECNNJexkFm5sOajh5G116RYA1c8ZMSw==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/natural-compare/-/natural-compare-1.4.0.tgz}
     name: natural-compare
@@ -2086,12 +2094,6 @@ packages:
     engines: {node: '>=8.10.0'}
     dependencies:
       picomatch: registry.npmmirror.com/picomatch/2.3.1
-
-  registry.npmmirror.com/recorder-core/1.2.22080700:
-    resolution: {integrity: sha512-A7VfuVBbOCJpvo+YmEc/Sshw4nDTmfAg1beL9P+vlCYHnECfZeaa07tFADT++z6VtdYCuu0un6DGl1uZQnzamg==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/recorder-core/-/recorder-core-1.2.22080700.tgz}
-    name: recorder-core
-    version: 1.2.22080700
-    dev: false
 
   registry.npmmirror.com/regenerator-runtime/0.13.10:
     resolution: {integrity: sha512-KepLsg4dU12hryUO7bp/axHAKvwGOCV0sGloQtpagJ12ai+ojVDqkeGSiRX1zlq+kjIMZ1t7gpze+26QqtdGqw==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/regenerator-runtime/-/regenerator-runtime-0.13.10.tgz}

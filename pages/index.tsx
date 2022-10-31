@@ -1,92 +1,62 @@
+import ChameleonText from "components/chameleon-text";
+import TransferCard from "components/transfer-card";
+import useRecorder from "hooks/useRecorder";
 import type { NextPage } from "next";
 import styles from "../styles/Home.module.scss";
-import TransferCard from "components/transfer-card";
-import ChameleonText from "components/chameleon-text";
-import { useEffect, useRef, useState } from "react";
-import Recorder from "js-audio-recorder";
+import usePlayer from "hooks/usePlayer";
 
 const list = [0, 1, 2, 3, 4];
 
 const Content = () => {
-  const [range, setRange] = useState(0);
-  const [recording, setRecording] = useState(false);
-  const recorderRef = useRef<Recorder>();
-  const [blobUrl, setBlobUrl] = useState<string>();
+  const { recording, file, start, stop } = useRecorder();
+  const { radio, play } = usePlayer();
 
   const handlePlay = () => {
-    const audio = new Audio(blobUrl);
-    audio.addEventListener("timeupdate", (e) => {
-      if (audio.duration === Infinity || isNaN(audio.duration)) return;
-      const radio =
-        audio.currentTime !== 0
-          ? (audio.currentTime * 100) / audio.duration
-          : 0;
-      setRange(Math.round(radio));
-    });
-    audio.play();
+    if (!file) return;
+    play(file);
   };
 
   const handleStart = () => {
-    if (!recorderRef.current) return;
-    setRecording(true);
-    recorderRef.current.start().then(
-      () => {
-        // 开始录音
-      },
-      (error) => {
-        // 出错了
-        console.log(`${error.name} : ${error.message}`);
-      }
-    );
+    console.log("start");
+    start();
   };
+
   const handleStop = () => {
-    if (!recorderRef.current) return;
-    setRecording(false);
-    const blob = recorderRef.current.getWAVBlob();
-    const blobUrl = URL.createObjectURL(blob);
-    setBlobUrl(blobUrl);
+    console.log("stop");
+    stop();
   };
-
-  const handleDown = () => {
-    if (blobUrl) {
-      const a = document.createElement("a");
-      a.href = blobUrl;
-      a.download = "audio.mp3";
-      a.click();
-    }
-  };
-
-  useEffect(() => {
-    recorderRef.current = new Recorder();
-  }, []);
 
   return (
     <div className={styles.content}>
       <div className={styles.bottomBar}>
         <div className={styles.audio}>
           {recording ? (
-            <button type="button" disabled={!recording} onClick={handleStop}>
+            <button type="button" disabled={!recording} onClick={stop}>
               停止录音
             </button>
           ) : (
-            <button type="button" disabled={recording} onClick={handleStart}>
+            <button type="button" disabled={recording} onClick={start}>
               开始录音
             </button>
           )}
-          <button type="button" disabled={!blobUrl} onClick={handlePlay}>
-            播放
+          <button
+            type="button"
+            onTouchStart={handleStart}
+            onTouchEnd={handleStop}
+          >
+            录音
           </button>
-          <button type="button" onClick={handleDown}>
-            下载
+          <button type="button" disabled={!file} onClick={handlePlay}>
+            播放
           </button>
         </div>
       </div>
+      <audio></audio>
       <div className={styles.ratio}>
-        <input type="range" value={range} onChange={() => null} />
-        {range}
+        <input type="range" value={radio} onChange={() => null} />
       </div>
       <div style={{ flex: 1, overflow: "hidden" }}>
-        <ChameleonText ratio={range} targetRGB={[255, 0, 51]}>
+        <ChameleonText ratio={radio} targetRGB={[255, 0, 51]}>
           啊波次的额
         </ChameleonText>
       </div>
